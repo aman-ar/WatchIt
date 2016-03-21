@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3"
+    tools:context="com.example.amanarora.watchit.ui.DetailsActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/posterImageView"
+        android:src="@drawable/notification_template_icon_bg"
+        android:background="#f5e20d"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ffffffff"
+        android:padding="20dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/titleLabel"
+            tools:text="Superman VS Batman"
+            android:textColor="#ff000000"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleLabel"
+            android:id="@+id/linearLayout"
+            android:paddingBottom="15dp"
+            android:paddingTop="5dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/genreLabel"
+                tools:text="Comedy,Animation"
+                android:textColor="#ff000040"
+                android:paddingRight="15dp"
+                android:textSize="15dp"/>
+            <View style="@style/Vertivaldivider"></View>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/ratingLabel"
+                tools:text="7.4"
+                android:textColor="#ff000000"
+                android:textSize="15dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"/>
+            <View style="@style/Vertivaldivider"></View>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/releaseLabel"
+                tools:text="2016"
+                android:paddingLeft="15dp"
+                android:textColor="#ff000000"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="This is the sysnopsis ares. Here you will find more information regarding the movie"
+            android:id="@+id/SynopsisLabel"
+            android:layout_below="@+id/linearLayout"
+            android:textSize="15dp"
+            android:textColor="#ff000fff"
+            android:gravity="fill_horizontal|top"
+            android:typeface="normal"
+            android:singleLine="false"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
