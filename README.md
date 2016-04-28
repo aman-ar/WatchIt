@@ -26,7 +26,8 @@ With the app, you can:
 ### **Screens** ##
 ----------
 
-![alt tag](https://github.com/aman-ar/WatchIt/new/master/IMG-20160427-WA0001.jpg)
+![alt tag](https://raw.githubusercontent.com/aman-ar/WatchIt/master/IMG-20160427-WA0002.jpg)
 
-![alt tag](https://github.com/aman-ar/WatchIt/new/master/IMG-20160427-WA0002.jpg)
+
+![alt tag](https://raw.githubusercontent.com/aman-ar/WatchIt/master/IMG-20160427-WA0001.jpg)
 
