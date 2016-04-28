@@ -1,13 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#EEEEEE"
+    >
+ <android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    card_view:cardElevation="3dp"
+    card_view:cardBackgroundColor="#FAFAFA"
+    card_view:cardCornerRadius="2dp"
+    android:layout_margin="5dp"
+    android:padding="0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/posterLabel"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"/>
-        //android:background="#130101"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            tools:text="Name of the Movie"
+            android:layout_toLeftOf="@+id/favoriteButton"
+            android:textSize="20sp"
+            android:id="@+id/nameTextView"
+            android:layout_below="@+id/posterLabel"
+            android:textColor="#212121"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            tools:text="Genre"
+            android:id="@+id/genreTextView"
+            android:textSize="12dp"
+            android:textColor="#757575"
+            android:textStyle="bold"
+            android:layout_below="@+id/nameTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/favoriteButton"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:singleLine="true"/>
+
+        <CheckBox
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:id="@+id/favoriteButton"
+        android:src="@drawable/heart_border"
+        android:background="@android:color/white"
+        android:backgroundTint="#FAFAFA"
+        android:button="@drawable/fav_button_selector"
+        android:checked="false"
+        android:onClick="addToFavorites"
+        android:layout_below="@+id/posterLabel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="3dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"/>
+
+    </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
 </RelativeLayout>

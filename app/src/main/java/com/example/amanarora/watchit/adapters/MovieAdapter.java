@@ -1,5 +1,6 @@
 package com.example.amanarora.watchit.adapters;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,24 +9,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.amanarora.watchit.Data.DBOpenHelper;
 import com.example.amanarora.watchit.Data.Movies;
+import com.example.amanarora.watchit.Data.MoviesProvider;
 import com.example.amanarora.watchit.R;
 import com.example.amanarora.watchit.ui.DetailsActivity;
-import com.example.amanarora.watchit.ui.MainActivity;
+import com.example.amanarora.watchit.ui.MoviesFragment;
 
 /**
  * Created by Aman's Laptop on 3/20/2016.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MoviesFragment.class.getSimpleName();
     private Context context;
     public Movies[] mMovie;
     public Movies mDetail;
-    public final static String HOURLY_FORECAST = "HOURLY FORECAST";
+    public final static String HOURLY_FORECAST = "HOURLY_FORECAST";
+    private String MovieFilter ;
+    private String genrelist = "";
 
     public MovieAdapter(Context context) {
         context = context;
@@ -45,30 +52,71 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     @Override
-    public void onBindViewHolder(MovieHolder holder, final int position) {
+    public void onBindViewHolder(final MovieHolder holder, final int position) {
 
-        //Uri uri = Uri.parse("http://image.tmdb.org/t/p/w185//inVq3FRqcYIRl2la8iZikYYxFNR.jpg");
-        Uri uri = Uri.parse("http://image.tmdb.org/t/p/w500/" + mMovie[position].getPoster());
+        Uri uri = Uri.parse("http://image.tmdb.org/t/p/w780/" + mMovie[position].getPoster());
         Context context = holder.posterLabel.getContext();
-        /*Picasso.with(context).load(uri)
-                .into(holder.posterLabel);
-        */
+
         Glide
                 .with(context)
                 .load(uri)
+                .centerCrop()
+                .fitCenter()
                 .into(holder.posterLabel);
+        holder.nameMovie.setText(mMovie[position].getTitle());
+      //  for(int x = 0 ; x < mMovie[position].getGenreId().length; x++) {
+       //     if (x == mMovie[position].getGenreId().length - 1) {
+         //       genrelist+=(mMovie[position].getGenreId()[x]);
+           //     break;
+           // }
+            //Log.v("Genre", mMovie[position].getGenreId()[x] +"for" + mMovie[position].getTitle());
+          //  genrelist+=(mMovie[position].getGenreId()[x]);
+          //  genrelist += ", ";
+        //}
+        //Log.v("Genre", genrelist +"for" + mMovie[position].getTitle());
+        genrelist = mMovie[position].getGenreId();
+        holder.genreMovie.setText(genrelist);
+        genrelist = "";
         mDetail = mMovie[position];
+
+        if (mMovie[position].getIsFavorite() == 1 )
+        {
+            holder.checkBox.setChecked(true);
+        }
+        else
+        {
+            holder.checkBox.setChecked(false);
+
+        }
 
         holder.posterLabel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Log.i(TAG, mMovie[position].getTitle());
-                //Log.i(TAG, mDetail.getTitle());
+
+                Log.i(TAG, String.valueOf(mMovie[position].getId()));
                 Intent intent = new Intent(view.getContext(), DetailsActivity.class);
                 intent.putExtra(HOURLY_FORECAST, mMovie[position]);
-               // Log.i(TAG, mDetail.getTitle());
-                Log.i(TAG, mMovie[position].getTitle());
                 view.getContext().startActivity(intent);
+            }
+        });
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, mMovie[position].getTitle());
+                MovieFilter = DBOpenHelper.MOVIES_ID + "=" + mMovie[position].getId();
+                if (holder.checkBox.isChecked() == true )
+                {
+                    insertNote(v.getContext(), mMovie[position].getId(), mMovie[position].getTitle());
+                    mMovie[position].setIsFavorite(1);
+                }
+                else
+                {
+                    deleteNote(v.getContext(),MovieFilter);
+                    mMovie[position].setIsFavorite(0);
+                }
+
             }
         });
         //holder.movieLabel.setText(mMovie[position] + "");
@@ -85,15 +133,36 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         //return 0;
     }
 
+    private void insertNote(Context context,Integer movieId, String movieName) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.MOVIES_ID, movieId.toString());
+        values.put(DBOpenHelper.MOVIES_NAME, movieName);
+        Uri movieUri = context.getContentResolver().insert(MoviesProvider.CONTENT_URI, values);
+        Log.d("MoviesFragment", "Inserted Movie " + movieUri.getLastPathSegment());
+    }
+
+    private void deleteNote(Context context, String movieFilter)
+    {
+        ContentValues values = new ContentValues();
+        context.getContentResolver().delete(MoviesProvider.CONTENT_URI, movieFilter, null);
+        Log.d("MoviesFragment", "Removed Movie " + MovieFilter);
+    }
+
     public class MovieHolder extends RecyclerView.ViewHolder {
 
         public ImageView posterLabel;
+        public CheckBox checkBox;
+        public TextView nameMovie;
+        public TextView genreMovie;
 
         public MovieHolder(View itemView) {
             super(itemView);
 
             posterLabel = (ImageView) itemView.findViewById(R.id.posterLabel);
-
+            checkBox = (CheckBox) itemView.findViewById(R.id.favoriteButton);
+            nameMovie = (TextView) itemView.findViewById(R.id.nameTextView);
+            genreMovie = (TextView) itemView.findViewById(R.id.genreTextView);
         }
     }
+
 }

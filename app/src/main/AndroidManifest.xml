@@ -24,6 +24,13 @@
         <activity android:name=".ui.DetailsActivity"
             android:parentActivityName=".ui.MainActivity">
         </activity>
+        <activity android:name=".adapters.AndroidDatabaseManager"
+                  android:theme="@style/Theme.AppCompat.Light"/>
+        <provider
+            android:name=".Data.MoviesProvider"
+            android:authorities="com.example.watchit.moviesprovider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

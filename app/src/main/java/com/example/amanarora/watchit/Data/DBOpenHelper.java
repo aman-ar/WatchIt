@@ -29,7 +29,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     //SQL to create table
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_MOVIES + " (" +
-                    MOVIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    MOVIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT CONFLICT_IGNORE, " +
                     MOVIES_NAME + " TEXT, " +
                     MOVIE_CREATED + " TEXT default CURRENT_TIMESTAMP" +
                     ")";

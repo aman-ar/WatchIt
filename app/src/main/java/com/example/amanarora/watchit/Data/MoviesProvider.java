@@ -16,7 +16,7 @@ public class MoviesProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.example.watchit.moviesprovider";
     private static final String BASE_PATH = "movies";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH );
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
     // Constant to identify the requested operation
     private static final int MOVIES = 1;
@@ -27,7 +27,7 @@ public class MoviesProvider extends ContentProvider {
 
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, MOVIES);
-        uriMatcher.addURI(AUTHORITY, BASE_PATH+ "/#", MOVIES_ID);
+        uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", MOVIES_ID);
     }
 
     private SQLiteDatabase database;
@@ -44,12 +44,14 @@ public class MoviesProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
-        if(uriMatcher.match(uri) == MOVIES_ID){
+        if (uriMatcher.match(uri) == MOVIES_ID) {
             selection = DBOpenHelper.MOVIES_ID + "=" + uri.getLastPathSegment();
         }
 
         return database.query(DBOpenHelper.TABLE_MOVIES, DBOpenHelper.ALL_COLUMNS, selection,
                 null, null, null, DBOpenHelper.MOVIE_CREATED + " DESC");
+
+
 
 
     }
